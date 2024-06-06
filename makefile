@@ -25,4 +25,8 @@ endif
 
 clean:
 	rm -r build/rootfs build/userland build/rootfs.gz
+
+clean-all:
+	rm -r build/rootfs build/userland build/rootfs.gz
 	rm build/Image
+
