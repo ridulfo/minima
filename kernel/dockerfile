@@ -1,0 +1,10 @@
+FROM debian:latest
+
+RUN apt update
+RUN apt install build-essential libncurses5-dev libssl-dev libelf-dev bison flex bc rsync wget -y
+
+WORKDIR /root
+ADD src/build-kernel.sh build-kernel.sh
+ADD src/.config .config
+
+CMD ["/bin/bash", "build-kernel.sh"]
