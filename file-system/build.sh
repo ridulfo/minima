@@ -1,14 +1,10 @@
 #! /bin/bash
 set -o errexit
 
-# Ensure we are in the correct directory
-cd "$(dirname "$0")"
-cd rootfs
+# The current directory is expected to be the project's root directory
+# TODO: make it less dependant on the current directory
 
-# Generate the rootfs.gz file
+cp -r file-system/rootfs build/rootfs
+cp build/userland/init build/rootfs
+cd build/rootfs
 find . | cpio -ov --format=newc | gzip -9 > ../rootfs.gz
-
-cd ..
-
-# Move the generated rootfs.gz to the appropriate location
-mv rootfs.gz ../build/rootfs.gz

@@ -24,4 +24,4 @@ decorated_print "Building..."
 make -j`nproc`
 
 decorated_print "Copied kernel to /mnt/shared"
-cp arch/arm64/boot/Image.gz /mnt/shared
+cp arch/arm64/boot/Image /mnt/shared

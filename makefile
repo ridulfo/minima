@@ -13,9 +13,7 @@ build/userland: $(wildcard minima/**/*)
 
 rootfs: build/rootfs.gz
 build/rootfs.gz: $(wildcard file-system/*) build/userland
-	cp -r file-system/rootfs build/rootfs
-	cd file-system; ./build.sh build
-
+	./file-system/build.sh
 # Temporary fix to avoid building the kernel
 ifeq ($(MAKEKERN),0)
 run: userland rootfs
@@ -26,4 +24,6 @@ endif
 	qemu-system-aarch64 -machine virt -cpu cortex-a57 -kernel Image -initrd rootfs.gz -nographic
 
 clean:
-	rm -r build/rootfs build/userland build/rootfs.gz #build/Image
+	rm -r build/rootfs build/userland build/rootfs.gz
+	# Disabled while kernel building is slow
+	# rm build/Image
