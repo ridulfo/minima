@@ -17,8 +17,8 @@ decorated_print "Extracting the code..."
 tar -xf linux-6.9.3.tar.xz
 cd linux-6.9.3
 
-decorated_print "Configuring build options..."
-make defconfig
+decorated_print "Copying the configuration..."
+cp ../.config .config
 
 decorated_print "Building..."
 make -j`nproc`
