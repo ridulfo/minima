@@ -5,22 +5,22 @@ fn main() {
     // Read command-line arguments
     let args: Vec<String> = env::args().collect();
 
-    // Determine the directory to list (default to current directory if no argument provided)
     let directory = if args.len() > 1 {
-        &args[1]
+        args[1].clone()
     } else {
-        "."  // Default to current directory
+        env::current_dir().unwrap().to_str().unwrap().to_string()
     };
 
     // List files and directories in the specified directory
-    if let Err(e) = list_directory(directory) {
+    if let Err(e) = list_directory(&directory) {
         eprintln!("Error: {}", e);
     }
 }
 
 fn list_directory(directory: &str) -> Result<(), String> {
     // Read the directory contents
-    let entries = fs::read_dir(directory).map_err(|e| format!("Failed to read directory: {}", e))?;
+    let entries =
+        fs::read_dir(directory).map_err(|e| format!("Failed to read directory: {}", e))?;
 
     // Print each entry in the directory
     for entry in entries {
