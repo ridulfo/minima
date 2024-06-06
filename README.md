@@ -1,5 +1,5 @@
 <div>
-    <p align="center"><img src="logo.png" height="200px" width="200px" /></p>
+    <p align="center"><img src="media/logo.png" height="200px" width="200px" /></p>
     <h1 align="center">Minima</h1>
 </div>
 
@@ -14,6 +14,17 @@ An ultra-minimalistic [Linux distribution](https://en.wikipedia.org/wiki/Linux_d
 - implement [libc](https://en.wikipedia.org/wiki/C_standard_library)
 - implement a kernel
 - implement drivers
+
+## Getting started
+To run the operating system in QEMU run the following command:
+```bash
+make run
+```
+
+Output:
+
+<img src="media/boot.gif"/>
+
 
 ## Milestones
 - [ ] automate building
