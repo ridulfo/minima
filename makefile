@@ -5,11 +5,11 @@ build/Image: $(wildcard kernel/*)
 	cd kernel; ./build.sh
 
 userland: build/userland
-build/userland: $(wildcard minima/**/*)
+build/userland: $(wildcard userland/**/*)
 	cd userland;\
 	cargo build --release --target aarch64-unknown-linux-musl;\
 	mkdir -p ../build/userland;\
-	mv target/aarch64-unknown-linux-musl/release/init ../build/userland
+	./move-binaries.sh
 
 rootfs: build/rootfs.gz
 build/rootfs.gz: $(wildcard file-system/*) build/userland
