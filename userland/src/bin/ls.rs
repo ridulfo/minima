@@ -1,20 +1,41 @@
+use std::env;
 use std::fs;
 
-fn main() -> std::io::Result<()> {
-    // Specify the directory path you want to list
-    let path = ".";  // Current directory, change this as needed
+fn main() {
+    // Read command-line arguments
+    let args: Vec<String> = env::args().collect();
 
-    // Read the directory entries
-    let entries = fs::read_dir(path)?;
+    // Determine the directory to list (default to current directory if no argument provided)
+    let directory = if args.len() > 1 {
+        &args[1]
+    } else {
+        "."  // Default to current directory
+    };
 
-    // Iterate over the entries and print their names
-    for entry in entries {
-        let entry = entry?;
-        let file_name = entry.file_name();
-        let file_name_str = file_name.to_string_lossy(); // Convert OsString to String
-        print!("{}  ", file_name_str);
+    // List files and directories in the specified directory
+    if let Err(e) = list_directory(directory) {
+        eprintln!("Error: {}", e);
     }
+}
+
+fn list_directory(directory: &str) -> Result<(), String> {
+    // Read the directory contents
+    let entries = fs::read_dir(directory).map_err(|e| format!("Failed to read directory: {}", e))?;
+
+    // Print each entry in the directory
+    for entry in entries {
+        let entry = entry.map_err(|e| format!("Failed to read directory entry: {}", e))?;
+        let path = entry.path();
+
+        // Print the path (as a string) of the entry
+        if let Some(file_name) = path.file_name() {
+            if let Some(file_name_str) = file_name.to_str() {
+                print!("{} ", file_name_str);
+            }
+        }
+    }
+
+    println!("");
 
     Ok(())
 }
-

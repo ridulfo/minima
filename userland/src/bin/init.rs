@@ -1,10 +1,15 @@
-use std::thread::sleep;
+use std::{thread::sleep, time::Duration};
+
+use userland::exec::execute;
 
 fn main() {
     println!("Welcome to Minima OS!");
-    println!("Going to sleep now...");
+    sleep(Duration::from_secs(1));
+
     loop {
-        sleep(std::time::Duration::from_secs(1));
-        println!("Zzz...")
+        let _ = execute("shell", &[""]);
+        println!("");
+        println!("shell process died, restarting...");
+        println!("");
     }
 }
