@@ -11,17 +11,28 @@ fn main() {
         let input = input.trim();
         let mut parts = input.split_whitespace();
         let command = parts.next().unwrap(); // Get the first part as the command
+        let args: Vec<&str> = parts.collect();
+
         if command.trim().is_empty() {
             continue;
         }
+
         if command == "exit" {
             break;
         }
 
-        // Collect the remaining parts into a vector of &str
-        let args: Vec<&str> = parts.collect();
+        if command == "env" {
+            for (key, value) in std::env::vars() {
+                println!("{}={}", key, value);
+            }
+            continue;
+        }
 
-        // Call execute function with command and args
+        if command == "cd" {
+            std::env::set_current_dir(args[0]).unwrap();
+            continue;
+        }
+
         match execute(command, &args) {
             Err(e) => eprintln!("Error executing command: {:?}", e),
             _ => (),
