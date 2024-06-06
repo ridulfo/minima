@@ -36,9 +36,6 @@ Output:
     - [ ] file system commands (ls, cd, cat)
     - [ ] text editor
 
-### Side-quests
-- [ ] [Make the kernel image smaller! 🐜](https://github.com/ridulfo/minima/issues/1)
-
 ## Contribute
 Feel free to contribute to any part of this project! If you are unsure where to start, check out the [open issues](https://github.com/ridulfo/minima/issues).
 

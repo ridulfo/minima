@@ -25,5 +25,4 @@ endif
 
 clean:
 	rm -r build/rootfs build/userland build/rootfs.gz
-	# Disabled while kernel building is slow
-	# rm build/Image
+	rm build/Image
