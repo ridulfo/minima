@@ -13,9 +13,9 @@ if [ ! -f build/userland/init ]; then
 fi
 
 # Copy the userland binaries to the rootfs directory
-cp -p build/userland/init build/rootfs
 cp -p build/userland/* build/rootfs/bin
 
+# Now the disk image will be created
 cd build
 
 # Create disk image file
