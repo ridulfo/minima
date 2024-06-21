@@ -21,21 +21,6 @@ To run the operating system in QEMU run the following command:
 make run
 ```
 <img alt="boot process print-out" src="media/boot.gif"/>
-(Old boot process)
-
-
-## Usage
-```
-[...initialization prints...]
-Welcome to Minima OS!
-> ls
-dev root proc init rootfs bin sbin etc var sys mnt lib tmp
-
-> ls bin
-init shell cd ls
-
->
-```
 
 
 ## Milestones
