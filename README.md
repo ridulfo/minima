@@ -15,23 +15,17 @@ An ultra-minimalistic [Linux distribution](https://en.wikipedia.org/wiki/Linux_d
 - implement a kernel
 - implement drivers
 
+## Status
+I have unfortunately abandoned this project due to loss of interest. This repository will remain public for reference purposes. **The skeleton of the project is still interesting and a good jumping off point for anybody interested!** It builds an ultra-minimal Linux Kernel (~10MB!), root file-system and packages in some userland programs written in rust.
+
+Initially, I was very intrigued by the challenge, it seemed like a good way to learn how Linux works. However, I discovered that **including a standard library removes too much of the challenge**. It does not make it trivial, but not as challenging. Programs like `ls` would just be wrappers around `fs::read_dir(directory)`. Implementing a standard library is a completely different beast. Perhaps something for the future! 
+
 ## Getting started
 To run the operating system in QEMU run the following command:
 ```bash
 make run
 ```
 <img alt="boot process print-out" src="media/boot.gif"/>
-
-
-## Milestones
-- [ ] automate building
-- [ ] automate testing
-- [ ] implement an init-system
-- [ ] create rust development environment
-- [ ] implement
-    - [ ] shell program
-    - [ ] file system commands (ls, cd, cat)
-    - [ ] text editor
 
 ## Contribute
 Feel free to contribute to any part of this project! If you are unsure where to start, check out the [open issues](https://github.com/ridulfo/minima/issues).
