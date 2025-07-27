@@ -7,6 +7,9 @@ set -o errexit
 # Copy the file-system to the build directory
 cp -r file-system/rootfs build/rootfs
 
+# Create the bin directory
+mkdir -p build/rootfs/bin
+
 # Check that the userland binaries are built
 if [ ! -f build/userland/init ]; then
     echo "Userland binaries are not built."
