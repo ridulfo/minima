@@ -10,15 +10,15 @@ function decorated_print {
     echo ""
 }
 
-decorated_print "Getting the kernel source code..."
-wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.9.3.tar.xz
-
 decorated_print "Extracting the code..."
-tar -xf linux-6.9.3.tar.xz
-cd linux-6.9.3
+cd build/linux-source
+tar -xf linux-source.tar.xz 
+
+mv linux-6* linux-source
+cd linux-source
 
 decorated_print "Copying the configuration..."
-cp ../.config .config
+cp /root/.config .config
 
 decorated_print "Building..."
 make -j`nproc`

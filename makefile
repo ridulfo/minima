@@ -1,13 +1,18 @@
 all:
 
+linux-source: build/linux-source/linux-source.tar.xz
+build/linux-source/linux-source.tar.xz:
+	mkdir -p build/linux-source;\
+	wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.10.9.tar.xz -O build/linux-source/linux-source.tar.xz
+
 kernel:build/Image
-build/Image: $(wildcard kernel/*)
+build/Image: $(wildcard kernel/*) linux-source
 	cd kernel; ./build.sh
 
 userland: build/userland
 build/userland: $(wildcard userland/**/*)
 	cd userland;\
-	cargo build --release --target aarch64-unknown-linux-musl;\
+	cargo zigbuild --release --target aarch64-unknown-linux-musl;\
 	mkdir -p ../build/userland;\
 	./move-binaries.sh
 
@@ -27,6 +32,5 @@ clean:
 	rm -r build/rootfs build/userland build/disk.img
 
 clean-all:
-	rm -r build/rootfs build/userland build/disk.img
-	rm build/Image
+	rm -rf build
 
