@@ -1,31 +1,39 @@
 {
-  inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  };
 
-  outputs = { self, nixpkgs }:
+  outputs =
+    { self, nixpkgs }:
     let
-      supportedSystems = [ "x86_64-linux" "aarch64-darwin" ];
+      supportedSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-      pkgsForSystem = system: import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
+      pkgsFor = system: nixpkgs.legacyPackages.${system};
     in
     {
-      devShells = forAllSystems (system:
-        let pkgs = pkgsForSystem system;
-        in {
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = pkgsFor system;
+        in
+        {
           default = pkgs.mkShell {
             packages = with pkgs; [
-              zsh
-              zig
-              e2fsprogs
+              bc
+              bison
+              elfutils.dev
+              flex
+              gcc
+              gnumake
+              ncurses.dev
+              qemu
             ];
-
-            shellHook = ''
-              export SHELL=${pkgs.zsh}/bin/zsh
-              PS1="[devshell] $PS1"  # Prepend [devshell] to the prompt
-              exec ${pkgs.zsh}/bin/zsh
-            '';
+            shellHook = ''exec zsh'';
           };
         }
       );
